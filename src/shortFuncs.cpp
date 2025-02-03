@@ -50,3 +50,13 @@ void quit(){
     cout << "I hope you enjoy from this program\n";
     cout << "Back again . Im gonna miss you\n";
 }
+
+string deleteSpace(string sequence){
+    string newSequence;
+    for(char ch : sequence){
+        if(ch != ' '){
+            newSequence += ch;
+        }
+    }
+    return newSequence;
+}

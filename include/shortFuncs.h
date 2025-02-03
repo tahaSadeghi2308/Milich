@@ -11,5 +11,6 @@ void getCommand(string , string& );
 void welcome();
 bool isNumber(string );
 void quit();
+string deleteSpace(string );
 
 #endif

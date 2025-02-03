@@ -14,6 +14,7 @@ struct Product {
 };
 
 // functions
-Product* getAllProducts(string , int& );
+Product* getAllProducts(string , int& , int&);
+void showProduct(string , int , int);
 
 #endif

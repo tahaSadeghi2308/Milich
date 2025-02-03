@@ -1,11 +1,12 @@
 #include "../include/productManager.h"
-#include <string>
+#include <iomanip>
 #include <fstream>
 #include <sstream>
+#include <iostream>
 
 using namespace std;
 
-Product* getAllProducts(string fileAddress ,int& currentProductsCount){
+Product* getAllProducts(string fileAddress ,int& currentProductsCount , int& arraySize){
     int initial_count = 15;
     // make sure u delete this 
     Product* products = new Product[initial_count];
@@ -36,8 +37,8 @@ Product* getAllProducts(string fileAddress ,int& currentProductsCount){
                 currentLine.str(line);
                 string amount , price;
                 currentLine >> temp.name;
-                currentLine >> price;
                 currentLine >> amount;
+                currentLine >> price;
 
                 temp.amount = stoi(amount);
                 temp.price = stoi(price);
@@ -46,7 +47,12 @@ Product* getAllProducts(string fileAddress ,int& currentProductsCount){
             }
         }
         currentProductsCount = count;
+        arraySize = initial_count;
         file.close();
     }
     return products;
+}
+
+void showProduct(string name , int amount , int price){
+    cout << setw(12) << name << setw(12) << amount << setw(12) << price << '\n';
 }
