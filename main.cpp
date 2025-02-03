@@ -1,6 +1,8 @@
 #include <iostream>
-#include "include/users.h"
+#include <iomanip>
+#include "include/usersManager.h"
 #include "include/shortFuncs.h"
+#include "include/productManager.h"
 
 using namespace std;
 
@@ -42,6 +44,7 @@ int main(){
             // ===========================================================================
             // since here user logs in correctly
             // write codes when user is login here ....
+
             clearScreen();
             User currentUser = getUserInfo(users , username , password);
             string prompt = (currentUser.isAdmin) ? "Admin> " : "Normal> ";
@@ -57,24 +60,22 @@ int main(){
             if (currentUser.isAdmin){
                 // for admin users
                 // command handler is this while loop
+                
+            } else {
+                // for normal users
+                // command handler is while loop
                 while(command != "q"){
                     clearScreen();
-                    if (command == "help"){
-                        cout << "show                         shows all products\n";
-                        cout << "show [product_name]          shows a specific product details\n";
-                        cout << "buy [product_name] [count]   you can buy a product with this\n";
-                        cout << "balance                      shows your wallet balance\n";
+                    if (command == "balance"){
+                        cout << "Your balance now is " << currentUser.walletAmount << '\n';
                     } else if (command == "show"){
-                        // show all products here...
-                    } else {
-                        cout << "Invalid command entered!!\n";
+                        cout << setw(12) << "Product Name" << setw(12) << "Price" << setw(12) << "Amount\n";
+                        // product should be shown here 
                     }
                     getCommand(prompt , command);
                 }
                 quit();
                 return 0;
-            } else {
-                // for normal users
             }
 
         } else {

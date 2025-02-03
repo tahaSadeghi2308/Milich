@@ -1,15 +1,15 @@
-1 apple 50 10000
-2 orange 40 12000
-3 banana 30 15000
-4 pear 20 18000
-5 kiwi 25 20000
-6 watermelon 15 25000
-7 melon 18 23000
-8 pineapple 10 30000
-9 strawberry 35 22000
-10 apricot 22 16000
-11 cucumber 45 9000
-12 carrot 38 11000
-13 lettuce 50 8000
-14 potato 60 7000
-15 onion 55 6000
+apple 50 10000
+orange 40 12000
+banana 30 15000
+pear 20 18000
+kiwi 25 20000
+watermelon 15 25000
+melon 18 23000
+pineapple 10 30000
+strawberry 35 22000
+apricot 22 16000
+cucumber 45 9000
+carrot 38 11000
+lettuce 50 8000
+potato 60 7000
+onion 55 6000

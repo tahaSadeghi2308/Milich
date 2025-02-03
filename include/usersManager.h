@@ -1,5 +1,5 @@
-#ifndef USERS_H
-#define USERS_H
+#ifndef USERSMANAGER_H
+#define USERSMANAGER_H
 
 #include <string>
 using namespace std;
