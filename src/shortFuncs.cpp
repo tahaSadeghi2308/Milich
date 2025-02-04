@@ -1,4 +1,6 @@
 #include "../include/shortFuncs.h"
+#include "../include/productManager.h"
+#include "../include/usersManager.h"
 #include <iostream>
 #include <cctype>
 #include <cstdlib>
@@ -59,4 +61,11 @@ string deleteSpace(string sequence){
         }
     }
     return newSequence;
+}
+
+void releseAllMems(User** allUsersPtr , Product** allProPtr){
+    delete[] *allUsersPtr;
+    delete[] *allProPtr;
+    *allProPtr = nullptr;
+    *allUsersPtr = nullptr;
 }

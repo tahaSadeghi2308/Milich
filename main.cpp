@@ -37,6 +37,8 @@ int main(){
                     getCommand("Password: " , password);
                 } else {
                     quit();
+                    delete[] users;
+                    users = nullptr;
                     return 0;
                 }
             }
@@ -54,19 +56,175 @@ int main(){
             // ---------------------------------------------------------------------
             cout << "You logged in successfully !!\n";
             cout << "Now what you want to do ??\n";
-            cout << "You can enter help to see what can you do here...\n";
-            cout << "If you want to back to the privious page enter back\n";
-
             string command;
             getCommand(prompt ,command);
             
             if (currentUser.isAdmin){
+                // this is for save and undo
+                Product deletedProduct;
                 // for admin users
-                // command handler is this while loop
-                
+                while(deleteSpace(command) != "q"){
+                    clearScreen();
+                    string commands[3];
+                    istringstream stream;
+                    stream.str(command);
+                    stream >> commands[0] >> commands[1] >> commands[2];
+
+                    if(commands[0] == "add"){
+                        if(isNumber(commands[2]) && !isNumber(commands[1])){
+                            if(!productExist(allPro , productsCount , commands[1])){
+                                if (productsCount + 1 >= currentArrayLen){
+                                    currentArrayLen *= 2;
+                                    Product* temp = new Product[currentArrayLen];
+                                    for(int i = 0; i < productsCount; i++){
+                                        temp[i] = allPro[i];
+                                    }
+                                    delete[] allPro;
+                                    allPro = temp;
+                                } 
+                                Product temp;
+                                temp.name = commands[1];
+                                temp.price = stoi(commands[2]);
+                                temp.amount = 50; // hard coded
+
+                                allPro[productsCount] = temp;
+                                productsCount++;
+
+                                cout << "Product added successfully!!\n";
+                                cout << productsCount << " " << currentArrayLen << '\n';
+                            }
+                            else {
+                                cout << "You can't add this product. we have it\n";
+                            }
+                        } 
+                        else {
+                            cout << "Invalid Price or item !!!\n";
+                        }
+                    }
+                    else if (commands[0] == "remove"){
+                        if(commands[2] == ""){
+                            if (commands[1] != ""){
+                                if (productExist(allPro , productsCount , commands[1])){
+                                    Product* temp = new Product[currentArrayLen];
+                                    for(int i = 0 , currentIndex = 0; i < productsCount; i++){
+                                        if(allPro[i].name != commands[1]){
+                                            temp[currentIndex++] = allPro[i];
+                                        }
+                                        else {
+                                            deletedProduct = allPro[i];
+                                        }
+                                    }
+                                    productsCount--;
+                                    delete[] allPro;
+                                    allPro = temp;
+                                    cout << commands[1] << " deleted successfully !!\n";
+                                }
+                                else {
+                                    cout << "This product does not exist !!!\n";
+                                }
+                            }
+                            else {
+                                cout << "You have to enter an item to remove !!\n";
+                            }
+                        }
+                        else {
+                            cout << "Invalid command !!\n";
+                        }
+                    }
+                    else if (commands[0] == "rename"){
+                        if(commands[1] != "" && commands[2] != ""){
+                            bool isFound = false;
+                            for(int i = 0; i < productsCount && !isFound; i++){
+                                if(allPro[i].name == commands[1]){
+                                    allPro[i].name = commands[2];
+                                    isFound = true;
+                                    cout << commands[1] << " successfully renamed to " << commands[2] << '\n';
+                                }
+                            }
+                            if (!isFound){
+                                cout << commands[1] << " does not exist in our products !!\n";
+                            }
+                        }
+                        else {
+                            cout << "Invalid command entered !!\n";
+                            cout << "rename [item] [newName]\n";
+                        }
+                    }
+                    else if (commands[0] == "price"){
+                        if(commands[1] != "" && commands[2] != ""){
+                            if (isNumber(commands[2])){
+                                bool isFound = false;
+                                for(int i = 0; i < productsCount && !isFound; i++){
+                                    if(allPro[i].name == commands[1]){
+                                        allPro[i].price = stoi(commands[2]);
+                                        isFound = true;
+                                        cout << commands[1] << " successfully re-priced to " << commands[2] << '\n';
+                                    }
+                                }
+                                if (!isFound){
+                                    cout << commands[1] << " does not exist in our products !!\n";
+                                }
+                            }
+                            else {
+                                cout << "New price should be a number !!!\n";
+                            }
+                        }
+                        else {
+                            cout << "Invalid command entered !!\n";
+                            cout << "price [item] [newPrice]\n";
+                        }
+                    }
+                    else if (commands[0] == "credit"){
+
+                        if(commands[1] != "" && commands[2] != ""){
+                            if(isNumber(commands[2])){
+                                bool isFound = false;
+                                for(int i = 0; i < USERS_COUNT && !isFound; i++){
+                                    if(users[i].username == commands[1]){
+                                        users[i].walletAmount = stoi(commands[2]);
+                                        isFound = true;
+                                        cout << "Balance for " << commands[1] << " changed successfully!!\n";
+                                    }
+                                }
+                                if(!isFound){
+                                    cout << "This user does not exist !!\n";
+                                }
+                            }
+                            else {
+                                cout << "New balance should be a number !!!\n";
+                            }
+                        }
+                        else {
+                            cout << "Invalid command entered !!\n";
+                            cout << "credit [username] [newBalance]\n";
+                        }
+                    }
+                    else if(commands[0] == "undo"){
+                        if(commands[1] == ""){
+                            if (deletedProduct.name != ""){
+                                allPro[productsCount] = deletedProduct;
+                                productsCount++;
+                                cout << deletedProduct.name << " is back!!!\n";
+                                deletedProduct.name = "";
+                            }
+                            else {
+                                cout << "Nothing to undo !!!\n";
+                            }
+                        }
+                        else {
+                            cout << "Invalid command entered !!!\n";
+                        }
+                    }
+                    else {
+                        cout << "Invalid Command !!\n";
+                    }
+                    getCommand(prompt , command);
+                }
+                quit();
+                releseAllMems(&users , &allPro);
+                return 0;
             } else {
                 // for normal users
-                // command handler is while loop
                 while(deleteSpace(command) != "q"){
                     clearScreen();
                     if (deleteSpace(command) == "balance"){
@@ -86,12 +244,13 @@ int main(){
                             bool isFound = false;
                             for(int i = 0; i < productsCount && !isFound; i++){
                                 if(allPro[i].name == commands[1]){
+                                    cout << setw(12) << "Product Name" << setw(12) << "Amount" << setw(12) << "Price\n";
                                     showProduct(allPro[i].name , allPro[i].amount , allPro[i].price);
                                     isFound = true;
                                 }
                             }
                             if(!isFound){
-                                cout << "Invalid product !!!\n";
+                                cout << "Invalid product to show !!!\n";
                             }
                         } 
                         // ----------------------- buy -----------------------------------
@@ -121,11 +280,14 @@ int main(){
                                 }
                             }
                             if(!isFound){
-                                cout << "Invalid product !!!\n";
+                                cout << "Invalid product to buy!!!\n";
                             }
                         }
                         else if(commands[0] == "help"){
-                            if(commands[1] == "show"){
+                            if (commands[1] == ""){
+                                cout << "help [command]    shows how does a command works\n";
+                            }
+                            else if(commands[1] == "show"){
                                 cout << "show            shows all products\n";
                                 cout << "show [product]  shows product information\n";
                             } 
@@ -146,10 +308,13 @@ int main(){
                     getCommand(prompt , command);
                 }
                 quit();
+                releseAllMems(&users , &allPro);
                 return 0;
             }
         } else {
             quit();
+            delete[] users;
+            users = nullptr;
             return 0;
         }
     } else if (deleteSpace(command) == "q"){

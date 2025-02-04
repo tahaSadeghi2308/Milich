@@ -16,5 +16,6 @@ struct Product {
 // functions
 Product* getAllProducts(string , int& , int&);
 void showProduct(string , int , int);
+bool productExist(Product* , int, string );
 
 #endif

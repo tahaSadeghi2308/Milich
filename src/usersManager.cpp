@@ -91,8 +91,8 @@ void updateUsersInfo(string fileAddress , User* usersList){
                  << usersList[i].password << " "
                  << usersList[i].isAdmin << " " 
                  << usersList[i].walletAmount << '\n';
-            file.close();
         }
+        file.close();
     } else {
         cout << "Couldn't open file!!\n";
     }

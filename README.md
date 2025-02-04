@@ -21,4 +21,11 @@ mkdir build
 cd build
 cmake ..
 mingw32-make
+.\run
 ```
+
+if you haven't cmake , you can run this program with this instruction
+
+```
+g++ main.cpp src/usersManager.cpp src/shortFuncs.cpp src/productManager.cpp -o run
+./run

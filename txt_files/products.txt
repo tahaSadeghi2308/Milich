@@ -13,3 +13,4 @@ carrot 38 11000
 lettuce 50 8000
 potato 60 7000
 onion 55 6000
+x 12 4000

@@ -8,7 +8,7 @@ using namespace std;
 const short USERS_COUNT = 5;
 
 // structures
-struct User{
+struct User {
     int id;
     string username;
     string password;

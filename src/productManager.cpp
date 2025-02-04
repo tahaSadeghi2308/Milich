@@ -56,3 +56,12 @@ Product* getAllProducts(string fileAddress ,int& currentProductsCount , int& arr
 void showProduct(string name , int amount , int price){
     cout << setw(12) << name << setw(12) << amount << setw(12) << price << '\n';
 }
+
+bool productExist(Product* allPro , int productCount , string productName){
+    for(int i = 0;i < productCount; i++){
+        if(allPro[i].name == productName){
+            return true;
+        }
+    }
+    return false;
+}
