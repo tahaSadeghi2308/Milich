@@ -14,3 +14,5 @@ lettuce 50 8000
 potato 60 7000
 onion 55 6000
 x 12 4000
+sib 50 1300
+moz 50 12000

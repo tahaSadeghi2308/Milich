@@ -93,7 +93,5 @@ void updateUsersInfo(string fileAddress , User* usersList){
                  << usersList[i].walletAmount << '\n';
         }
         file.close();
-    } else {
-        cout << "Couldn't open file!!\n";
     }
 }

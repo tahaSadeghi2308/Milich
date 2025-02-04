@@ -65,3 +65,14 @@ bool productExist(Product* allPro , int productCount , string productName){
     }
     return false;
 }
+
+void updateProductsInfo(string fileAddress , Product* usersList , int productsCount){
+    ofstream file;
+    file.open(fileAddress);
+    for (int i = 0; i < productsCount; i++) {
+        file << usersList[i].name << " "
+             << usersList[i].amount << " "
+             << usersList[i].price << '\n';
+    }
+    file.close();
+}

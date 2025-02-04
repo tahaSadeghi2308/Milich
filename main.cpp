@@ -37,12 +37,12 @@ int main(){
                     getCommand("Password: " , password);
                 } else {
                     quit();
+                    updateUsersInfo("../txt_files/users.txt" , users);
                     delete[] users;
                     users = nullptr;
                     return 0;
                 }
             }
-
             // ===========================================================================
             // since here user logs in correctly
             // write codes when user is login here ....
@@ -221,6 +221,9 @@ int main(){
                     getCommand(prompt , command);
                 }
                 quit();
+                // ------------------- update files -----------------------------
+                updateProductsInfo("../txt_files/products.txt" , allPro , productsCount);
+                updateUsersInfo("../txt_files/users.txt" , users);
                 releseAllMems(&users , &allPro);
                 return 0;
             } else {
@@ -308,11 +311,16 @@ int main(){
                     getCommand(prompt , command);
                 }
                 quit();
+                // ------------------- update files -----------------------------
+                updateProductsInfo("../txt_files/products.txt" , allPro , productsCount);
+                updateUsersInfo("../txt_files/users.txt" , users);
                 releseAllMems(&users , &allPro);
                 return 0;
             }
         } else {
             quit();
+            // ------------------- update files -----------------------------
+            updateUsersInfo("../txt_files/users.txt" , users);
             delete[] users;
             users = nullptr;
             return 0;
