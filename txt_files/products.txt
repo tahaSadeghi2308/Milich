@@ -1,4 +1,4 @@
-apple 1 10000
+apple 2 10000
 orange 40 12000
 banana 30 15000
 pear 20 18000

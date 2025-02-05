@@ -71,34 +71,50 @@ int main(){
                     stream >> commands[0] >> commands[1] >> commands[2];
 
                     if(commands[0] == "add"){
-                        if(isNumber(commands[2]) && !isNumber(commands[1])){
-                            if(!productExist(allPro , productsCount , commands[1])){
-                                if (productsCount + 1 >= currentArrayLen){
-                                    currentArrayLen *= 2;
-                                    Product* temp = new Product[currentArrayLen];
+                        if(commands[1] != "" && commands[2] != ""){
+                            if(isNumber(commands[2]) && !isNumber(commands[1])){
+                                if(!productExist(allPro , productsCount , commands[1])){
+                                    if (productsCount + 1 >= currentArrayLen){
+                                        currentArrayLen *= 2;
+                                        Product* temp = new Product[currentArrayLen];
+                                        for(int i = 0; i < productsCount; i++){
+                                            temp[i] = allPro[i];
+                                        }
+                                        delete[] allPro;
+                                        allPro = temp;
+                                    } 
+                                    Product temp;
+                                    temp.name = commands[1];
+                                    temp.price = stoi(commands[2]);
+                                    temp.amount = 1; // hard coded
+
+                                    allPro[productsCount] = temp;
+                                    productsCount++;
+
+                                    cout << "Product added successfully!!\n";
+                                }
+                                else {
                                     for(int i = 0; i < productsCount; i++){
-                                        temp[i] = allPro[i];
+                                        if (allPro[i].name == commands[1]){
+                                            (allPro[i].amount)++;
+                                            cout << "One " << commands[1] << " added\n";
+                                            break;
+                                        }
                                     }
-                                    delete[] allPro;
-                                    allPro = temp;
-                                } 
-                                Product temp;
-                                temp.name = commands[1];
-                                temp.price = stoi(commands[2]);
-                                temp.amount = 50; // hard coded
-
-                                allPro[productsCount] = temp;
-                                productsCount++;
-
-                                cout << "Product added successfully!!\n";
-                                cout << productsCount << " " << currentArrayLen << '\n';
+                                }
                             }
                             else {
-                                cout << "You can't add this product. we have it\n";
+                                if(!isNumber(commands[2])){
+                                    cout << "Price is a number bro not " << commands[2] << '\n';
+                                }
+                                else {
+                                    cout << "You think this is logicall ??\n";
+                                }
                             }
-                        } 
+                        }
                         else {
-                            cout << "Invalid Price or item !!!\n";
+                            cout << "Invalid command!!\n";
+                            cout << "add [Item] [price]    add a item to our products\n";
                         }
                     }
                     else if (commands[0] == "remove"){
