@@ -1,7 +1,7 @@
 # MILICH
 Milich is a simple product manager system that allows you to manage your products using a command line
 interface (CLI) system .
-
+this project has been created with a system which is so hard to type with it !!!!
 
 ## HOW TO RUN
 First make sure you have installed g++/gcc and cmake build system and than run following commands
